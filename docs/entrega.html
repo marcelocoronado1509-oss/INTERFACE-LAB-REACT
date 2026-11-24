@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Entrega · Interface Lab</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      :root {
+        color: #171714;
+        font-family: Arial, Helvetica, sans-serif;
+        font-synthesis: none;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: #e7e5dd;
+      }
+
+      .page {
+        position: relative;
+        width: 210mm;
+        height: 297mm;
+        overflow: hidden;
+        padding: 15mm 16mm;
+        background: #f2f0e9;
+        page-break-after: always;
+      }
+
+      .page:last-child {
+        page-break-after: auto;
+      }
+
+      .topline,
+      .footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1.5px solid #171714;
+        padding-bottom: 4mm;
+        font-size: 8pt;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .footer {
+        position: absolute;
+        right: 16mm;
+        bottom: 12mm;
+        left: 16mm;
+        border-top: 1.5px solid #171714;
+        border-bottom: 0;
+        padding-top: 4mm;
+        padding-bottom: 0;
+      }
+
+      .mark {
+        display: inline-grid;
+        width: 8mm;
+        height: 8mm;
+        margin-right: 2mm;
+        place-items: center;
+        background: #c6f54b;
+        font-size: 10pt;
+      }
+
+      .kicker {
+        margin: 16mm 0 5mm;
+        font-size: 9pt;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        max-width: 175mm;
+        margin-bottom: 8mm;
+        font-size: 49pt;
+        font-weight: 900;
+        letter-spacing: -0.085em;
+        line-height: 0.83;
+        text-transform: uppercase;
+      }
+
+      h1 .highlight {
+        background: #c6f54b;
+      }
+
+      h2 {
+        margin: 9mm 0 3mm;
+        font-size: 27pt;
+        font-weight: 900;
+        letter-spacing: -0.07em;
+        line-height: 0.9;
+        text-transform: uppercase;
+      }
+
+      h3 {
+        margin-bottom: 2mm;
+        font-size: 13pt;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      p {
+        font-size: 10pt;
+        line-height: 1.45;
+      }
+
+      .intro {
+        max-width: 135mm;
+        font-size: 13pt;
+        line-height: 1.4;
+      }
+
+      .accent-bar {
+        width: 23mm;
+        height: 4mm;
+        margin: 8mm 0;
+        background: #ff8066;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3mm;
+        margin: 7mm 0;
+      }
+
+      .card {
+        min-height: 35mm;
+        padding: 4mm;
+        border: 1.5px solid #171714;
+      }
+
+      .card:nth-child(1) {
+        background: #c6f54b;
+      }
+
+      .card:nth-child(2) {
+        background: #ff8066;
+      }
+
+      .card:nth-child(3) {
+        background: #b8a5ff;
+      }
+
+      .card p {
+        margin-bottom: 0;
+        font-size: 8.5pt;
+      }
+
+      .specs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4mm 9mm;
+        margin-top: 8mm;
+        padding-top: 5mm;
+        border-top: 1.5px solid #171714;
+      }
+
+      .specs p {
+        margin-bottom: 0;
+        font-size: 9pt;
+      }
+
+      .label {
+        display: block;
+        margin-bottom: 1mm;
+        font-size: 7.5pt;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .screenshot {
+        display: block;
+        width: 100%;
+        border: 1.5px solid #171714;
+        object-fit: contain;
+        object-position: top;
+      }
+
+      .desktop-image {
+        max-height: 176mm;
+        margin-top: 8mm;
+      }
+
+      .caption {
+        margin: 4mm 0 0;
+        font-size: 9pt;
+      }
+
+      .device-grid {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-around;
+        gap: 8mm;
+        margin-top: 9mm;
+      }
+
+      .device {
+        margin: 0;
+        text-align: center;
+      }
+
+      .tablet-image {
+        width: 98mm;
+        max-height: 187mm;
+      }
+
+      .mobile-image {
+        width: 63mm;
+        max-height: 187mm;
+      }
+
+      .device figcaption {
+        margin-top: 3mm;
+        font-size: 9pt;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .checklist {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3mm;
+        margin: 7mm 0;
+      }
+
+      .check {
+        padding: 4mm;
+        border: 1.5px solid #171714;
+        background: #fff;
+        font-size: 9pt;
+        line-height: 1.4;
+      }
+
+      .check strong {
+        display: block;
+        margin-bottom: 1mm;
+        text-transform: uppercase;
+      }
+
+      .deploy {
+        margin-top: 6mm;
+        padding: 5mm;
+        border: 1.5px solid #171714;
+        background: #c6f54b;
+      }
+
+      .deploy p {
+        margin-bottom: 0;
+      }
+
+      ol {
+        margin: 5mm 0 0;
+        padding-left: 6mm;
+      }
+
+      li {
+        margin-bottom: 3mm;
+        padding-left: 1mm;
+        font-size: 9pt;
+        line-height: 1.35;
+      }
+
+      code {
+        font-family: Consolas, monospace;
+        font-size: 8.5pt;
+      }
+
+      @media screen {
+        .page {
+          margin: 12mm auto;
+          box-shadow: 0 2mm 7mm #0002;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="page">
+      <div class="topline">
+        <span><span class="mark">I.</span>Interface Lab</span>
+        <span>Desarrollo de interfaces · 2026</span>
+      </div>
+      <p class="kicker">Entrega / React + Tailwind CSS</p>
+      <h1>Diseña para <span class="highlight">todas</span> las pantallas.</h1>
+      <div class="accent-bar"></div>
+      <p class="intro">
+        Una landing educativa, brutalista y responsive para explorar interfaces de escritorio,
+        aplicaciones nativas y experiencias web/híbridas.
+      </p>
+
+      <h2>Qué incluye</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>01 / Tipos</h3>
+          <p>Escritorio con Java/Python; móvil nativo con Android/iOS; web e híbridas con HTML y React.</p>
+        </article>
+        <article class="card">
+          <h3>02 / Diseño</h3>
+          <p>Prototipado en Figma/Adobe XD y estilos CSS/Sass con referencias a Bootstrap y Tailwind.</p>
+        </article>
+        <article class="card">
+          <h3>03 / Interacción</h3>
+          <p>Menú móvil, navegación por anclas, botones de vista responsive y estados hover/focus.</p>
+        </article>
+      </div>
+
+      <div class="specs">
+        <p><span class="label">Tecnologías</span>React · TypeScript · Vite · Tailwind CSS</p>
+        <p><span class="label">Composición</span>Brutalismo · bloques tipográficos · color de acento</p>
+        <p><span class="label">Responsive</span>Breakpoints Tailwind · rejillas adaptables · menú móvil</p>
+        <p><span class="label">Viewport</span><code>min-height: calc(100svh - 73px)</code></p>
+      </div>
+      <div class="footer">
+        <span>Interface Lab</span>
+        <span>01 / 04</span>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="topline">
+        <span>01 / Responsive en escritorio</span>
+        <span>1440 × 1000 px</span>
+      </div>
+      <h2>Una composición amplia,<br />con aire y jerarquía.</h2>
+      <p>En escritorio, la navegación se expande y las tarjetas se distribuyen en tres columnas.</p>
+      <img alt="Captura del sitio Interface Lab en escritorio" class="screenshot desktop-image" src="./screenshots/escritorio.png" />
+      <p class="caption">La portada ocupa el alto visible del viewport; los enlaces permiten recorrer las secciones.</p>
+      <div class="footer">
+        <span>Interface Lab · RWD</span>
+        <span>02 / 04</span>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="topline">
+        <span>02 / Responsive en tablet y móvil</span>
+        <span>820 × 1180 / 390 × 844 px</span>
+      </div>
+      <h2>El contenido se<br />adapta al espacio.</h2>
+      <p>La rejilla y la navegación cambian para priorizar legibilidad y uso táctil.</p>
+      <div class="device-grid">
+        <figure class="device">
+          <img alt="Captura del sitio Interface Lab en tablet" class="screenshot tablet-image" src="./screenshots/tablet.png" />
+          <figcaption>Tablet · 820 px</figcaption>
+        </figure>
+        <figure class="device">
+          <img alt="Captura del sitio Interface Lab en móvil" class="screenshot mobile-image" src="./screenshots/movil.png" />
+          <figcaption>Móvil · 390 px</figcaption>
+        </figure>
+      </div>
+      <div class="footer">
+        <span>Interface Lab · RWD</span>
+        <span>03 / 04</span>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="topline">
+        <span>03 / Criterios de diseño y publicación</span>
+        <span>Vercel</span>
+      </div>
+      <h2>Revisión de la<br />entrega.</h2>
+      <div class="checklist">
+        <div class="check"><strong>Brutalismo</strong>Alto contraste, contornos marcados, tipografía pesada, geometría visible y acentos de color.</div>
+        <div class="check"><strong>Interacciones</strong>Menú desplegable, selector funcional para tres formatos, enlaces y estados de interacción accesibles.</div>
+        <div class="check"><strong>RWD</strong>Diseño validado con capturas en escritorio, tablet y móvil; rejillas y navegación adaptables.</div>
+        <div class="check"><strong>Viewport</strong>Portada con <code>100svh</code>, scroll suave y preferencia de movimiento reducido.</div>
+      </div>
+      <div class="deploy">
+        <h3>Estado de Vercel: preparado para desplegar</h3>
+        <p>Incluye <code>vercel.json</code> (Vite, <code>npm run build</code>, salida <code>dist</code>) y guía en README. La publicación no se ha ejecutado: este entorno no tiene sesión/cuenta Vercel ni repositorio remoto configurado.</p>
+      </div>
+      <ol>
+        <li>Sube <code>interface-lab-react-tailwind</code> a un repositorio Git y conéctalo desde <code>vercel.com/new</code>.</li>
+        <li>Si el repositorio contiene otras carpetas, elige <code>interface-lab-react-tailwind</code> como Root Directory.</li>
+        <li>Comprueba Build Command <code>npm run build</code> y Output Directory <code>dist</code>; pulsa Deploy.</li>
+        <li>Al terminar, Vercel mostrará la URL pública. Los siguientes pushes a la rama conectada activan nuevos despliegues.</li>
+      </ol>
+      <p class="caption"><strong>Verificación local:</strong> <code>npm run build</code> — compilación de producción correcta.</p>
+      <div class="footer">
+        <span>Interface Lab · React + Tailwind CSS</span>
+        <span>04 / 04</span>
+      </div>
+    </section>
+  </body>
+</html>
